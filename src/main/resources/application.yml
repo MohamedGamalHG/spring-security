@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: sp-security
+  security:
+    user:
+      name: mohamed
+      password: mohamed
