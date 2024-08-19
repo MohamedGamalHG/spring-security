@@ -1,6 +1,19 @@
 spring:
   application:
     name: sp-security
+  datasource:
+    url: jdbc:mysql://localhost:3306/sp-security
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        ddl-auto: create-drop
+        naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      show-sql: true
   security:
     user:
       name: mohamed
