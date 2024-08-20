@@ -1,4 +1,4 @@
-package com.mg.sp_security.controller;
+package com.mg.sp_security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
