@@ -3,9 +3,11 @@ package com.mg.sp_security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -37,7 +39,11 @@ public class SecurityConfig {
 //        };
 
        return http.csrf(c -> c.disable()) // tell spring that disable csrf token
-                .authorizeHttpRequests(a -> a.anyRequest().authenticated())// tell spring that any request will be authorized
+                .authorizeHttpRequests(a ->
+                        a.
+                                requestMatchers("register","login")
+                                        .permitAll().
+                                anyRequest().authenticated())// tell spring that any request will be authorized
                 // this tell spring to put the form login again to put username & pass and take care about Customizer.withDefaults()
                 // if i use this with postman it raises code html of login from
                 .formLogin(Customizer.withDefaults())
@@ -46,6 +52,11 @@ public class SecurityConfig {
                 // with browser it should pause the .formLogin(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
        .build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean

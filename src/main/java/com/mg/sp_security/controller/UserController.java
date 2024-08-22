@@ -23,4 +23,11 @@ public class UserController {
         users.setPassword(encoder.encode(users.getPassword()));
         return userService.register(users);
     }
+
+    @PostMapping("/login")
+    public String verify(@RequestBody Users users)
+    {
+        return userService.verify(users);
+    }
+
 }
